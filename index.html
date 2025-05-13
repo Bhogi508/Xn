@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rais Phone v2</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      width: 100%;
+      background: #111;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    #phone {
+      height: 100%;
+      width: 100%;
+      position: relative;
+      background: linear-gradient(145deg, #1e1e1e, #2d2d2d);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .lock-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, #000000, #333);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      transition: opacity 0.5s ease;
+    }
+
+    .lock-screen.hidden {
+      display: none;
+    }
+
+    .lock-time {
+      font-size: 48px;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    .unlock-btn {
+      padding: 12px 25px;
+      background: #00aaff;
+      border: none;
+      border-radius: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      color: white;
+      margin-top: 20px;
+    }
+
+    .status-bar {
+      background: #222;
+      color: white;
+      font-size: 14px;
+      text-align: right;
+      padding: 10px 15px;
+    }
+
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      padding: 30px;
+      flex: 1;
+    }
+
+    .app-icon {
+      background: #2c2c2c;
+      padding: 20px;
+      border-radius: 20px;
+      text-align: center;
+      color: white;
+      font-size: 16px;
+      box-shadow: 0 0 10px #000;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .app-icon:active {
+      transform: scale(0.95);
+      background: #444;
+    }
+
+    .footer-bar {
+      background: #222;
+      text-align: center;
+      padding: 12px;
+      color: white;
+      font-size: 14px;
+    }
+
+    .google-btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #fff;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="phone">
+
+  <!-- Lock Screen -->
+  <div class="lock-screen" id="lockScreen">
+    <div class="lock-time" id="timeDisplay">12:00</div>
+    <div style="color:white;">Welcome to Rais Phone</div>
+    <button class="unlock-btn" onclick="unlockPhone()">Unlock</button>
+  </div>
+
+  <!-- Phone UI -->
+  <div class="status-bar">Rais OS | Battery: 100% | <span id="statusTime">12:00</span></div>
+
+  <div class="home-grid">
+    <div class="app-icon" onclick="alert('Opening Gmail')">Gmail</div>
+    <div class="app-icon" onclick="alert('Opening Browser')">Browser</div>
+    <div class="app-icon" onclick="alert('Opening Notes')">Notes</div>
+    <div class="app-icon" onclick="alert('Opening Vault')">Vault</div>
+    <div class="app-icon" onclick="alert('Opening Settings')">Settings</div>
+    <div class="app-icon" onclick="lockPhone()">Lock Phone</div>
+  </div>
+
+  <div class="footer-bar">
+    <button class="google-btn" onclick="alert('Google Login Coming Soon')">Sign in with Google</button><br>
+    Rais Phone v2 – A Web Mobile OS
+  </div>
+</div>
+
+<script>
+  function updateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    document.getElementById('timeDisplay').innerText = timeString;
+    document.getElementById('statusTime').innerText = timeString;
+  }
+
+  function unlockPhone() {
+    document.getElementById('lockScreen').classList.add('hidden');
+  }
+
+  function lockPhone() {
+    document.getElementById('lockScreen').classList.remove('hidden');
+  }
+
+  setInterval(updateTime, 1000);
+  updateTime();
+</script>
+
+</body>
+</html>
